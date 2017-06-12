@@ -20,6 +20,8 @@ CREATE TABLE Pizza(
 #------------------------------------------------------------
 # Table: Ingredient
 #------------------------------------------------------------
+exec --no-startup-id dunst -config /home/romain/.dunstrc
+exec_always feh --bg-scale $(find /home/romain/Dropbox/wallpaper -type f | shuf -n 1)
 
 CREATE TABLE Ingredient(
         id  int (11) Auto_increment  NOT NULL ,
@@ -118,7 +120,7 @@ CREATE TABLE Client(
 CREATE TABLE Contient(
         quantite      Int NOT NULL ,
         id            Int NOT NULL ,
-        id_Commande   Int NOT NULL ,
+        id_Pizza      Int NOT NULL ,
         id_Ingredient Int NOT NULL ,
         PRIMARY KEY (id ,id_Commande ,id_Ingredient )
 )ENGINE=InnoDB;
