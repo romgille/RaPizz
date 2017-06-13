@@ -62,9 +62,9 @@ CREATE TABLE Commande(
         heureLivraison TimeStamp ,
         id_Vehicule    Int NOT NULL ,
         id_Pizza       Int NOT NULL ,
-        id_Client      Int ,
+        id_Client      Int NOT NULL ,
         id_Addresse    Int NOT NULL ,
-        id_Taille      Int ,
+        id_Taille      Int NOT NULL ,
         id_Livreur     Int ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
@@ -117,9 +117,9 @@ CREATE TABLE Client(
 
 CREATE TABLE Contient(
         quantite      Int NOT NULL ,
-        id            Int NOT NULL ,
+        id_Pizza      Int NOT NULL ,
         id_Ingredient Int NOT NULL ,
-        PRIMARY KEY (id ,id_Ingredient )
+        PRIMARY KEY (id_Pizza ,id_Ingredient )
 )ENGINE=InnoDB;
 
 
@@ -128,9 +128,9 @@ CREATE TABLE Contient(
 #------------------------------------------------------------
 
 CREATE TABLE Habite(
-        id        Int NOT NULL ,
-        id_Client Int NOT NULL ,
-        PRIMARY KEY (id ,id_Client )
+        id_Addresse   Int NOT NULL ,
+        id_Client     Int NOT NULL ,
+        PRIMARY KEY (id_Addresse ,id_Client )
 )ENGINE=InnoDB;
 
 ALTER TABLE Commande ADD CONSTRAINT FK_Commande_id_Vehicule FOREIGN KEY (id_Vehicule) REFERENCES Vehicule(id);
@@ -139,8 +139,8 @@ ALTER TABLE Commande ADD CONSTRAINT FK_Commande_id_Client FOREIGN KEY (id_Client
 ALTER TABLE Commande ADD CONSTRAINT FK_Commande_id_Addresse FOREIGN KEY (id_Addresse) REFERENCES Addresse(id);
 ALTER TABLE Commande ADD CONSTRAINT FK_Commande_id_Taille FOREIGN KEY (id_Taille) REFERENCES Taille(id);
 ALTER TABLE Commande ADD CONSTRAINT FK_Commande_id_Livreur FOREIGN KEY (id_Livreur) REFERENCES Livreur(id);
-ALTER TABLE Contient ADD CONSTRAINT FK_Contient_id FOREIGN KEY (id) REFERENCES Pizza(id);
+ALTER TABLE Contient ADD CONSTRAINT FK_Contient_id FOREIGN KEY (id_Pizza) REFERENCES Pizza(id);
 ALTER TABLE Contient ADD CONSTRAINT FK_Contient_id_Ingredient FOREIGN KEY (id_Ingredient) REFERENCES Ingredient(id);
-ALTER TABLE Habite ADD CONSTRAINT FK_Habite_id FOREIGN KEY (id) REFERENCES Addresse(id);
+ALTER TABLE Habite ADD CONSTRAINT FK_Habite_id FOREIGN KEY (id_Addresse) REFERENCES Addresse(id);
 ALTER TABLE Habite ADD CONSTRAINT FK_Habite_id_Client FOREIGN KEY (id_Client) REFERENCES Client(id);
 
