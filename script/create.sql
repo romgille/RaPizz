@@ -8,11 +8,11 @@
 #------------------------------------------------------------
 
 CREATE TABLE Pizza(
-        id   int (11) Auto_increment  NOT NULL ,
-        nom  Varchar (25) NOT NULL ,
-        prix Float NOT NULL ,
-        PRIMARY KEY (id ) ,
-        UNIQUE (nom )
+    id   int (11) Auto_increment  NOT NULL ,
+    nom  Varchar (25) NOT NULL ,
+    prix Float NOT NULL ,
+    PRIMARY KEY (id ) ,
+    UNIQUE (nom )
 )ENGINE=InnoDB;
 
 
@@ -21,9 +21,9 @@ CREATE TABLE Pizza(
 #------------------------------------------------------------
 
 CREATE TABLE Ingredient(
-        id  int (11) Auto_increment  NOT NULL ,
-        nom Varchar (25) NOT NULL ,
-        PRIMARY KEY (id )
+    id  int (11) Auto_increment  NOT NULL ,
+    nom Varchar (25) NOT NULL ,
+    PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
 
@@ -32,11 +32,11 @@ CREATE TABLE Ingredient(
 #------------------------------------------------------------
 
 CREATE TABLE Vehicule(
-        id             int (11) Auto_increment  NOT NULL ,
-        label          Varchar (25) NOT NULL ,
-        immaticulation Varchar (25) NOT NULL ,
-        PRIMARY KEY (id ) ,
-        UNIQUE (immaticulation )
+    id             int (11) Auto_increment  NOT NULL ,
+    label          Varchar (25) NOT NULL ,
+    immatriculation Varchar (25),
+    PRIMARY KEY (id ) ,
+    UNIQUE (immatriculation )
 )ENGINE=InnoDB;
 
 
@@ -45,10 +45,10 @@ CREATE TABLE Vehicule(
 #------------------------------------------------------------
 
 CREATE TABLE Livreur(
-        id     int (11) Auto_increment  NOT NULL ,
-        nom    Varchar (25) NOT NULL ,
-        prenom Varchar (25) NOT NULL ,
-        PRIMARY KEY (id )
+    id     int (11) Auto_increment  NOT NULL ,
+    nom    Varchar (25) NOT NULL ,
+    prenom Varchar (25) NOT NULL ,
+    PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
 
@@ -57,16 +57,16 @@ CREATE TABLE Livreur(
 #------------------------------------------------------------
 
 CREATE TABLE Commande(
-        id             int (11) Auto_increment  NOT NULL ,
-        heureCommande  TimeStamp NOT NULL ,
-        heureLivraison TimeStamp ,
-        id_Vehicule    Int NOT NULL ,
-        id_Pizza       Int NOT NULL ,
-        id_Client      Int NOT NULL ,
-        id_Addresse    Int NOT NULL ,
-        id_Taille      Int NOT NULL ,
-        id_Livreur     Int ,
-        PRIMARY KEY (id )
+    id             int (11) Auto_increment  NOT NULL ,
+    heureCommande  TimeStamp NOT NULL ,
+    heureLivraison TimeStamp ,
+    id_Vehicule    Int ,
+    id_Pizza       Int NOT NULL ,
+    id_Client      Int NOT NULL ,
+    id_Addresse    Int NOT NULL ,
+    id_Taille      Int NOT NULL ,
+    id_Livreur     Int ,
+    PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
 
@@ -75,10 +75,10 @@ CREATE TABLE Commande(
 #------------------------------------------------------------
 
 CREATE TABLE Taille(
-        id    int (11) Auto_increment  NOT NULL ,
-        ratio Float NOT NULL ,
-        label Varchar (25) NOT NULL ,
-        PRIMARY KEY (id )
+    id    int (11) Auto_increment  NOT NULL ,
+    ratio Float NOT NULL ,
+    label Varchar (25) NOT NULL ,
+    PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
 
@@ -87,12 +87,12 @@ CREATE TABLE Taille(
 #------------------------------------------------------------
 
 CREATE TABLE Addresse(
-        id      int (11) Auto_increment  NOT NULL ,
-        ville   Varchar (25) ,
-        voie    Varchar (25) ,
-        numero  Int NOT NULL ,
-        zipCode Varchar (25) NOT NULL ,
-        PRIMARY KEY (id )
+    id      int (11) Auto_increment  NOT NULL ,
+    ville   Varchar (25) ,
+    voie    Varchar (25) ,
+    numero  Int ,
+    zipCode Varchar (25) NOT NULL ,
+    PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
 
@@ -101,13 +101,13 @@ CREATE TABLE Addresse(
 #------------------------------------------------------------
 
 CREATE TABLE Client(
-        id     int (11) Auto_increment  NOT NULL ,
-        solde  Float NOT NULL ,
-        nom    Varchar (25) NOT NULL ,
-        prenom Varchar (25) NOT NULL ,
-        email  Varchar (25) NOT NULL ,
-        tel    Varchar (25) NOT NULL ,
-        PRIMARY KEY (id )
+    id     int (11) Auto_increment  NOT NULL ,
+    solde  Float NOT NULL ,
+    nom    Varchar (25) NOT NULL ,
+    prenom Varchar (25) NOT NULL ,
+    email  Varchar (25),
+    tel    Varchar (25),
+    PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
 
@@ -116,10 +116,10 @@ CREATE TABLE Client(
 #------------------------------------------------------------
 
 CREATE TABLE Contient(
-        quantite      Int NOT NULL ,
-        id_Pizza      Int NOT NULL ,
-        id_Ingredient Int NOT NULL ,
-        PRIMARY KEY (id_Pizza ,id_Ingredient )
+    quantite      Int NOT NULL ,
+    id_Pizza      Int NOT NULL ,
+    id_Ingredient Int NOT NULL ,
+    PRIMARY KEY (id_Pizza ,id_Ingredient )
 )ENGINE=InnoDB;
 
 
@@ -128,9 +128,9 @@ CREATE TABLE Contient(
 #------------------------------------------------------------
 
 CREATE TABLE Habite(
-        id_Addresse   Int NOT NULL ,
-        id_Client     Int NOT NULL ,
-        PRIMARY KEY (id_Addresse ,id_Client )
+    id_Addresse   Int NOT NULL ,
+    id_Client     Int NOT NULL ,
+    PRIMARY KEY (id_Addresse ,id_Client )
 )ENGINE=InnoDB;
 
 ALTER TABLE Commande ADD CONSTRAINT FK_Commande_id_Vehicule FOREIGN KEY (id_Vehicule) REFERENCES Vehicule(id);
