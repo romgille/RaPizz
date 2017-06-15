@@ -1,0 +1,47 @@
+###
+# SYSTEM FEATURES
+###
+
+# check client solde
+
+# get client bill
+
+# check for free pizza
+
+# check free pizza by exceed delivery time
+
+# find best client
+
+# find the worst deliveryman
+
+# find best/worst pizza
+
+# find best ingredient
+
+###
+# MENU
+###
+
+# find data to print menu
+# list pizza, price, ingredients, ...
+
+###
+# DELIVERY BILL
+###
+
+# find data to print delivery bill
+# blablabla
+
+
+###
+# RANDOM REQUESTS
+###
+
+# find vehicle never used
+
+# calculate amount of order by client
+
+# calculate average of orders
+
+# find clients with more ordres than avg
+
