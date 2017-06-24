@@ -5,10 +5,11 @@ author: Romain Gille
 date: \today
 ...
 
-# Description du projet
-<INSERT SOME BULLSHIT HERE>
+# Le projet et ses contraintes
 
-# Contraintes
+## Description du projet
+L'objectif principal visé par ce projet est la conception d'une base de donnée permettant de répondre aux besoins exprimés.
+La base de données développée doit étre capable de gérer l’activité quotidienne de vente et de livraison de Rapizz. La base devra notament vérifier le solde des comptes utilisateurs afin de refuser les commandes pour lesquels le solde est insuffisant. La base doit aussi être capable de vérifier le montant de la facture pour ne pas facturer les pizzas gratuites grâce à la aux points de fidélité ou au retard. De plus, la base doit pouvoir proposer un suivi du chiffre d’affaires des ventes des pizzas et effectuer des statistiques diverses sur les activités.
 
 ## Contraintes du projet
 <CREEPYPASTA DU SUJET INCOMING>
@@ -17,8 +18,8 @@ date: \today
 * MariaDB FTW
 * mysql-client
 * JMerizzz
-* eclipse & windowbuilder plugin & jcdb libs
-* __DID I MENTION I USE ARCH LINUX__
+* eclipse & windowbuilder plugin & jdbc libs
+* __DID I MENTION I USE ARCH LINUX ?__
 
 # La base de donnee
 
@@ -77,15 +78,11 @@ NATURAL JOIN Client clt
 GROUP BY clt.nom;
 ```
 
-Il est ensuite plutot ultra assez ez de faire un fuckin' modulo 10 et check ça fait 0
+Il est ensuite plutot ultra assez ez de faire un fuckin' modulo 10 et check si ça fait 0
 
-### Taille de la pizza liee a la commande
-[CF AU DESSUS](### Calcul du prix d'une pizza)
-
-### Adresse de livraison
-wut
-SELECT id_Addresse FROM Commande ?
-useless.com nan ?
+### Adresse de clients et adresse de livraison
+Un client à la possibilité de saisir différentes adresses de livraison. Cette fonctionnalité est incorporée à notre base de donnée par l'usage d'une table de liaison entre les tables Client et Adresse.
+Chaque commande doit aussi être liée à une adresse d'où la présence d'une clé étrangère id_Adresse.
 
 ## Procedures
 cat scripts/procedures.sql scripts/requests.txt
@@ -135,3 +132,14 @@ Cause with you I’m
 Supeeeeeeeeerhuumaaaaaaaaan
 
 Suuupeeeeeeeeeeeerhuuumaaaaaaaan
+
+# Annexes
+
+Script de création de la base de donnée:
+scripts/create.sql
+
+Script d'insertion d'un jeu de données de test:
+scripts/insert.sql
+
+Procedures usuelles:
+scripts/procedures.sql
