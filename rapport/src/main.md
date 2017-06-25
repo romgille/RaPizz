@@ -7,6 +7,8 @@ geometry: margin=1in
 toc: true
 ...
 
+\newpage
+
 # Le projet et ses contraintes
 
 ## Description du projet
@@ -29,9 +31,8 @@ De plus, la base doit pouvoir proposer un suivi du chiffre d’affaires des vent
 # La base de données
 
 ## Schemas
-Here you are:
-![img](../img/mcd.jpg)
-![img](../img/mld.jpg)
+![mcd](../img/mcd.jpg)
+![mld](../img/mld.jpg)
 
 ## Détails
 
@@ -75,6 +76,7 @@ FROM Commande
 WHERE id=1 -- id de commande
 ;
 ```
+\newpage
 
 ### Pizza de fidélite offerte
 La pizzeria Rapizz a une offre de fidelité pour ses clients. Au bout de dix commandes, la pizza est offerte.
@@ -100,26 +102,57 @@ entre les tables `Client` et `Adresse`.
 Chaque commande doit aussi être liée à une adresse d'où la présence d'une clé étrangère `id_Adresse`.
 
 ## Procédures
-cat scripts/procedures.sql scripts/requests.txt
+```sql
+CREATE PROCEDURE AjoutIngredient (IN ingredient VARCHAR(25)) MODIFIES SQL DATA
+BEGIN
+    INSERT INTO Ingredient (nom) VALUE (ingredient);
+END$$
+
+CREATE PROCEDURE AjoutLivreur (IN nom VARCHAR(25), prenom VARCHAR(25)) MODIFIES SQL DATA
+BEGIN
+    INSERT INTO Livreur (nom, prenom) VALUE (nom, prenom);
+END$$
+
+CREATE PROCEDURE AjoutVehicule (IN label VARCHAR(25), immat VARCHAR(25)) MODIFIES SQL DATA
+BEGIN
+    INSERT INTO Vehicule (label, immatriculation) VALUE (label, immat);
+END$$
+```
+
+### SYSTEM FEATURES
+
+* check client solde
+* get client bill
+* check for free pizza
+* check free pizza by exceed delivery time
+* find best client
+* find the worst deliveryman
+* find best/worst pizza
+* find best ingredient
+
+### MENU
+
+* find data to print menu
+* list pizza, price, ingredients, ...
+
+### DELIVERY BILL
+
+* find data to print delivery bill
+* blablabla
+
+### RANDOM REQUESTS
+
+* find vehicle never used
+* calculate amount of order by client
+* calculate average of orders
+* find clients with more ordres than avg
 
 # Interface graphique
-I was thinking that maybe when you get back
-You could come with me
-Fuck work, fall in love right now
-And spend all our money
-
-Jump with me
-OHOHOHOhoooo
-Jump with me ohohohoo
-
-I've been feeling it wasn't in my fingertips
-When we tried it out
-Get lost, get far away
-And do what we want to do now
-
-Jump with me
-OHOHOHOhoooo
-Jump with me ohohohoo
+![Accueil](../img/ihm/accueil.png){}
+![Liste Clients](../img/ihm/liste_clients.png){}
+![Liste Pizzas](../img/ihm/liste_pizza.png){}
+![plop](../img/ihm/3emescreen.png){}
+![stats](../img/ihm/stats.png){}
 
 # Conclusion
 Everything is new to me
@@ -151,10 +184,13 @@ Suuupeeeeeeeeeeeerhuuumaaaaaaaan
 # Annexes
 
 Script de création de la base de donnée:
-scripts/create.sql
+
+[create.sql](../../script/create.sql)
 
 Script d'insertion d'un jeu de données de test:
-scripts/insert.sql
+
+[insert.sql](../../script/insert.sql)
 
 Procedures usuelles:
-scripts/procedures.sql
+
+[procedures.sql](../../script/procedures.sql)
