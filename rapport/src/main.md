@@ -3,6 +3,8 @@ title: Rapport projet base de donnee - Rapizz
 author: Romain Gille
         Erwan Maugere
 date: \today
+geometry: margin=1in
+toc: true
 ...
 
 # Description du projet
