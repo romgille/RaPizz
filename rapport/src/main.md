@@ -1,5 +1,5 @@
 ---
-title: Rapport projet base de donnee - Rapizz
+title: Rapport projet base de données - Rapizz
 author: Romain Gille
         Erwan Maugere
 date: \today
@@ -8,8 +8,11 @@ date: \today
 # Le projet et ses contraintes
 
 ## Description du projet
-L'objectif principal visé par ce projet est la conception d'une base de donnée permettant de répondre aux besoins exprimés.
-La base de données développée doit étre capable de gérer l’activité quotidienne de vente et de livraison de Rapizz. La base devra notament vérifier le solde des comptes utilisateurs afin de refuser les commandes pour lesquels le solde est insuffisant. La base doit aussi être capable de vérifier le montant de la facture pour ne pas facturer les pizzas gratuites grâce à la aux points de fidélité ou au retard. De plus, la base doit pouvoir proposer un suivi du chiffre d’affaires des ventes des pizzas et effectuer des statistiques diverses sur les activités.
+L'objectif principal visé par ce projet est la conception d'une base de données permettant de répondre aux besoins exprimés.
+La base de données développée doit être capable de gérer l’activité quotidienne de vente et de livraison de Rapizz.
+La base devra notamment vérifier le solde des comptes utilisateurs afin de refuser les commandes pour lesquels le solde est insuffisant.
+La base doit aussi être capable de vérifier le montant de la facture pour ne pas facturer les pizzas gratuites grâce aux points de fidélité ou au retard.
+De plus, la base doit pouvoir proposer un suivi du chiffre d’affaires des ventes des pizzas et effectuer des statistiques diverses sur les activités.
 
 ## Contraintes du projet
 <CREEPYPASTA DU SUJET INCOMING>
@@ -21,21 +24,27 @@ La base de données développée doit étre capable de gérer l’activité quot
 * eclipse & windowbuilder plugin & jdbc libs
 * __DID I MENTION I USE ARCH LINUX ?__
 
-# La base de donnee
+# La base de données
 
 ## Schemas
 Here you are:
 ![img](../img/mcd.jpg)
 ![img](../img/mld.jpg)
 
-## Details
+## Détails
 
 ### Calcul du prix d'une pizza
-Chaque pizza a un prix de base qui est estimé à patir de la liste des ingrediants et de la complexité de sa préparation. Ce prix est celui affiché sur la carte de la pizzaria. Cependant, un second paramètre est à prendre en compte pour obtenir le prix réél d'une pizza. En effet, il est possible de commander des pizzas de taille différente, la taille portera une influence sur le prix finale de la pizza.
-Rapizz propose aujourd'hui 3 tailles de pizza: l'humaine, la naine et l'ogresse.
-La taille dites "humaine" est à concidéré comme la taille normale et est proposée par défaut. Cette taille n'influe pas le prix finale de la pizza. A contrario, les tailles "naine" et "ogresse" influent le prix à hauteur réspéctive d'une diminution et d'une augmentation d'un tier.
-Pour appliquer ces changements de prix, la table Taille de notre base de donnée comporte un champ "ratio" qui représente l'influence de la taille sur le prix. Dans la table Commande, une pizza est associé à sa taille. Il est ainsi possible d'obtenir le réél d'une pizza en appliquant le ratio de la taille sur le prix de base de la pizza.
-Cette oppération se fait grace à la requette suivante:
+Chaque pizza a un prix de base qui est estimé à partir de la liste des ingrédients et de la complexité de sa préparation. Ce prix est celui affiché sur la carte de la pizzeria.
+Cependant, un second paramètre est à prendre en compte pour obtenir le prix réel d'une pizza. En effet, il est possible de commander des pizzas de tailles différentes,
+la taille portera une influence sur le prix final de la pizza.
+Rapizz propose aujourd'hui trois tailles de pizza: l'**humaine**, la **naine** et l'**ogresse**.
+La taille dite "humaine" est à concidérer comme la taille normale et est proposée par défaut. Cette taille n'influe pas le prix finale de la pizza (ratio de 1).
+A contrario, les tailles "naine" et "ogresse" influent le prix à hauteur respective d'une diminution et d'une augmentation d'un tier.
+Pour appliquer ces changements de prix, la table `Taille` de notre base de données comporte un champ `ratio` qui représente l'influence de la taille sur le prix.
+Dans la table `Commande`, une pizza est associée à sa taille. Il est ainsi possible d'obtenir le prix réel d'une pizza en appliquant le ratio de la taille sur le prix de base
+de la pizza.
+Cette oppération se fait grâce à la requête suivante:
+
 ```sql
 SELECT
     p.prix AS "prix de base",
@@ -49,10 +58,12 @@ WHERE c.id=2 -- id de commande
 ```
 
 ### Calcul du temps de livraison
-Notre table Commande est composé de deux champs "heureCommande" et "heureLivraison" de type timestamp qui représentent réspectivement les dates et heures de commande et de livraison.
-Le champ heureLivraison est un champ nullable se qui permet de ne le saisir qu'après la livraison effective de la commande.
+Notre table `Commande` est composée de deux champs `heureCommande` et `heureLivraison` de type Timestamp qui représentent repectivement les dates et heures de commande et de
+livraison.
+Le champ `heureLivraison` est un champ qui peut être `null` ce qui permet de ne le saisir qu'après la livraison effective de la commande.
 
-On peut alors, grace à la requete suivante obtenir le temps de livraison d'une commande:
+On peut alors, grâce à la requête suivante obtenir le temps de livraison d'une commande:
+
 ```sql
 SELECT
     heureCommande,
@@ -63,10 +74,11 @@ WHERE id=1 -- id de commande
 ;
 ```
 
-### Pizza de fidelite offerte
-La pizzaria Rapizz a une offre de fidelité pour ses clients. Au bout de 10 commandes, la pizza est offerte.
+### Pizza de fidélite offerte
+La pizzeria Rapizz a une offre de fidelité pour ses clients. Au bout de dix commandes, la pizza est offerte.
 
-Pour vérifier si une commande doit être offerte, il faut suivre une procedure en deux étapes: calculer le nombre de commande d'un client puis, vérifier si la commande est un chiffre rond.
+Pour vérifier si une commande doit être offerte, il faut suivre une procédure en deux étapes: calculer le nombre de commandes d'un client, puis, vérifier si la commande
+est un chiffre rond.
 
 Calcul du nombre de commandes par client:
 ```sql
@@ -78,13 +90,14 @@ NATURAL JOIN Client clt
 GROUP BY clt.nom;
 ```
 
-Il est ensuite plutot ultra assez ez de faire un fuckin' modulo 10 et check si ça fait 0
+Il nous suffit ensuite de faire un modulo $10$ et de vérifier si il vaut $0$.
 
 ### Adresse de clients et adresse de livraison
-Un client à la possibilité de saisir différentes adresses de livraison. Cette fonctionnalité est incorporée à notre base de donnée par l'usage d'une table de liaison entre les tables Client et Adresse.
-Chaque commande doit aussi être liée à une adresse d'où la présence d'une clé étrangère id_Adresse.
+Un client a la possibilité de saisir différentes adresses de livraison. Cette fonctionnalité est incorporée à notre base de donnée par l'usage d'une table de liaison
+entre les tables `Client` et `Adresse`.
+Chaque commande doit aussi être liée à une adresse d'où la présence d'une clé étrangère `id_Adresse`.
 
-## Procedures
+## Procédures
 cat scripts/procedures.sql scripts/requests.txt
 
 # Interface graphique
